@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>begreifswald — Agentische KI zum Anfassen</title>
+<meta name="description" content="Begreifswald macht agentische KI begreifbar — für Menschen, Schulen und kleine Betriebe in Vorpommern. Selbst gebaut, lokal, zum Anfassen.">
+<style>
+:root{
+  --mint:#02C39A; --petrol:#028090; --deep:#0A3D45; --ink:#1E3238;
+  --gray:#5B6E73; --tint:#EAF6F6; --paper:#FFFFFF;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{transition:none!important;animation:none!important} }
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6}
+a{color:var(--petrol)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--mint);outline-offset:2px}
+.wrap{max-width:960px;margin:0 auto;padding:0 1.25rem}
+
+/* Kopf */
+header{padding:1.1rem 0}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.brand .sym{width:2.4rem;height:2.4rem;background:var(--petrol);border-radius:.6rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.brand .sym svg{width:1.5rem;height:1.5rem}
+.wordmark{font-weight:800;font-size:1.45rem;letter-spacing:-0.02em;color:var(--ink)}
+.wordmark .be{color:var(--mint)}
+
+/* Hero */
+.hero{background:var(--deep);color:var(--paper);padding:4.5rem 0 4rem}
+.hero h1{font-size:clamp(1.9rem,5vw,3.1rem);line-height:1.15;letter-spacing:-0.02em;font-weight:800;max-width:21ch}
+.hero h1 .dim{color:#7FA8AC;font-weight:700}
+.hero h1 .hot{color:var(--mint)}
+.hero p.sub{margin-top:1.2rem;font-size:1.1rem;color:#C9E4E1;max-width:52ch}
+.hero .ort{margin-top:1.8rem;display:inline-block;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);font-weight:700}
+
+/* Mini-Demo */
+.demo{background:var(--paper);border-radius:1rem;padding:1.4rem;max-width:26rem;margin-top:2.4rem;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.demo .label{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);font-weight:700;margin-bottom:.8rem}
+.bubble{border-radius:1rem;padding:.65rem 1rem;font-size:.95rem;max-width:88%}
+.bubble.user{background:var(--tint);color:var(--ink);margin-left:auto;border-bottom-right-radius:.25rem}
+.bubble.bot{background:var(--deep);color:var(--paper);margin-top:.6rem;border-bottom-left-radius:.25rem;opacity:0;transform:translateY(4px);transition:opacity .4s,transform .4s}
+.bubble.bot.show{opacity:1;transform:none}
+.tank{margin:1rem 0;background:linear-gradient(180deg,#0E4A54,#0A3D45);border-radius:.6rem;height:5.2rem;position:relative;overflow:hidden;transition:background .5s}
+.tank.on{background:linear-gradient(180deg,#0FA98F,#0B6E62)}
+.tank .lamp{position:absolute;top:.45rem;left:50%;transform:translateX(-50%);width:3.4rem;height:.55rem;border-radius:.3rem;background:#1E5A63;transition:background .4s,box-shadow .4s}
+.tank.on .lamp{background:#FFF6C9;box-shadow:0 0 18px 6px rgba(255,246,201,.55)}
+.tank .fish{position:absolute;bottom:1rem;left:12%;font-size:1.3rem;filter:grayscale(1) brightness(.7);transition:filter .5s}
+.tank .fish.f2{left:55%;bottom:1.9rem;font-size:1rem}
+.tank .fish.f3{left:78%;bottom:.8rem;font-size:1.1rem}
+.tank.on .fish{filter:none}
+.demo button{width:100%;border:none;background:var(--mint);color:var(--deep);font-weight:800;font-size:1rem;padding:.75rem;border-radius:.6rem;cursor:pointer}
+.demo button:hover{background:#03D6AA}
+.demo button[disabled]{background:#B9C7C5;cursor:default}
+
+/* Sektionen */
+section{padding:3.5rem 0}
+section h2{font-size:1.6rem;letter-spacing:-0.01em;margin-bottom:1rem}
+section p{max-width:62ch;color:var(--ink)}
+.muted{color:var(--gray)}
+.beispiele{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-top:1.6rem}
+.karte{background:var(--tint);border-radius:.8rem;padding:1.1rem 1.2rem}
+.karte b{display:block;margin-bottom:.3rem;color:var(--petrol)}
+.karte span{font-size:.93rem;color:var(--ink)}
+.band{background:var(--tint)}
+.kontakt a.mail{display:inline-block;margin-top:1rem;background:var(--petrol);color:#fff;text-decoration:none;font-weight:700;padding:.8rem 1.4rem;border-radius:.6rem}
+.kontakt a.mail:hover{background:#03958F}
+
+/* Fuss */
+footer{background:var(--deep);color:#9FD9D4;padding:2.5rem 0;font-size:.9rem}
+footer a{color:#C9E4E1}
+footer .cols{display:flex;flex-wrap:wrap;gap:2.5rem;justify-content:space-between}
+footer h3{color:#fff;font-size:1rem;margin-bottom:.5rem}
+footer .platzhalter{color:var(--mint)}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <a class="brand" href="#">
+    <span class="sym"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" color="#FFFFFF" style="color:#FFFFFF" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0z"></path><path d="M9 11.24V7.5a2.5 2.5 0 0 1 5 0v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74m9.84 4.63-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74c-3.6-.76-3.54-.75-3.67-.75-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38"></path></svg></span>
+    <span class="wordmark"><span class="be">be</span>greifswald</span>
+  </a>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <h1><span class="dim">Klassische KI antwortet.</span><br>Agentische KI <span class="hot">arbeitet mit.</span></h1>
+    <p class="sub">Wir machen agentische KI begreifbar — für Menschen, Schulen und kleine Betriebe in Vorpommern. Nicht KI, die nur antwortet, sondern KI, die mitarbeitet: selbst gebaut, lokal, zum Anfassen.</p>
+    <span class="ort">Greifswald &amp; Vorpommern</span>
+
+    <div class="demo" aria-label="Kleine Demonstration">
+      <div class="label">Probieren Sie es aus</div>
+      <div class="bubble user">„Schalte das Aquarienlicht ein."</div>
+      <div class="tank" id="tank" role="img" aria-label="Stilisiertes Aquarium, Licht ist aus">
+        <div class="lamp"></div>
+        <span class="fish">🐟</span><span class="fish f2">🐠</span><span class="fish f3">🐟</span>
+      </div>
+      <div class="bubble bot" id="antwort">Erledigt — das Licht ist an. Genau so steuert unser Assistent zu Hause echte Geräte.</div>
+      <button id="knopf" type="button" onclick="lichtAn()">Licht einschalten</button>
+    </div>
+  </div>
+</div>
+
+<section class="wrap" id="idee">
+  <h2>Die Blackbox öffnen</h2>
+  <p>KI wirkt auf viele wie eine Blackbox — undurchschaubar und ein bisschen unheimlich. Wir öffnen die Box: An einfachen, alltäglichen Beispielen zeigen wir, wie so ein KI-Assistent arbeitet. Wer einmal gesehen hat, wie das Schritt für Schritt funktioniert, hat die Werkzeuge an der Hand, die den Alltag wirklich erleichtern.</p>
+  <div class="beispiele">
+    <div class="karte"><b>Er hört zu und handelt</b><span>Ein gesprochener Satz — und zu Hause geht das Licht an, der Fernseher wechselt den Kanal.</span></div>
+    <div class="karte"><b>Er kann sehen</b><span>Der Assistent holt ein Kamerabild und beschreibt in natürlicher Sprache, was er sieht.</span></div>
+    <div class="karte"><b>Er erledigt Alltagsaufgaben</b><span>Recherchieren, zusammenfassen, per E-Mail senden, ablegen — selbstständig, Schritt für Schritt.</span></div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <h2>Konkret und praktisch — keine Folien über „KI-Transformation"</h2>
+    <p>Wir bleiben beim Anfassbaren: laufende Systeme, die man sehen, ausprobieren und nachbauen kann — und die sicher und zuverlässig arbeiten. In Live-Demos und Treffen in Greifswald zeigen wir, wie das funktioniert, was heute schon gut geht — und ehrlich auch, was noch nicht.</p>
+    <p class="muted" style="margin-top:.8rem">Als Demo-Beispiel dient ein selbst gebauter Assistent auf Basis des Open-Source-Frameworks OpenClaw — Begreifswald ist jedoch werkzeugunabhängig.</p>
+  </div>
+</section>
+
+<section class="wrap kontakt" id="kontakt">
+  <h2>Lust, dabei zu sein?</h2>
+  <p>Wir bauen gerade eine Gruppe von Interessierten in Greifswald und Umgebung auf — zum Austauschen, Zuschauen und Selbermachen. Keine Vorkenntnisse nötig, nur Neugier.</p>
+  <p style="margin-top:.8rem"><strong>Begreifswald ist ein ehrenamtliches, nicht-kommerzielles Projekt.</strong> Wir verkaufen nichts — es geht ums Verstehen, Ausprobieren und Weitergeben.</p>
+  <a class="mail" href="mailto:openclaw.demo@icloud.com?subject=Begreifswald%20—%20Interesse">Schreiben Sie uns</a>
+  <p class="muted" style="margin-top:.8rem;font-size:.9rem">Termine für Demos und Treffen erscheinen hier, sobald sie feststehen.</p>
+<br>
+</section>
+
+<footer>
+  <div class="wrap cols">
+    <div>
+      <h3>Impressum</h3>
+      <p>Angaben gemäß § 5 DDG:<br>
+      <span class="platzhalter">Jörg Boese</span><br>
+      <span class="platzhalter">Loitzer Straße 10b</span><br>
+      <span class="platzhalter">17489 Greifswald</span><br>
+      E-Mail: openclaw.demo@icloud.com</p>
+    </div>
+    <div style="max-width:34rem">
+      <h3>Datenschutz</h3>
+      <p>Diese Website verwendet keine Cookies, kein Tracking und keine externen Dienste oder Schriften. Beim Aufruf verarbeitet unser Hosting-Anbieter (GitHub Pages, GitHub Inc.) technisch notwendige Verbindungsdaten wie die IP-Adresse in Server-Protokollen; Details in der <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">Datenschutzerklärung von GitHub</a>. Wenn Sie uns per E-Mail kontaktieren, verwenden wir Ihre Angaben nur zur Beantwortung Ihrer Anfrage.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function lichtAn(){
+  document.getElementById('tank').classList.add('on');
+  document.getElementById('tank').setAttribute('aria-label','Stilisiertes Aquarium, Licht ist an');
+  document.getElementById('antwort').classList.add('show');
+  var k=document.getElementById('knopf');
+  k.disabled=true; k.textContent='Licht ist an ✓';
+}
+</script>
+
+</body>
+</html>
