@@ -77,6 +77,22 @@ a.pdf:hover{background:#03958F}
 a.pdf svg{width:1.15rem;height:1.15rem;flex-shrink:0}
 .material .meta{display:block;margin-top:.7rem;font-size:.85rem;color:var(--gray)}
 
+/* Termine */
+.termine{padding:2.8rem 0}
+.termine .intro{color:var(--gray)}
+.tliste{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.7rem;margin-top:1.4rem}
+.tliste li{background:var(--tint);border-radius:.7rem;padding:.8rem 1rem;border:2px solid transparent}
+.tliste .tag{display:block;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);font-weight:700}
+.tliste .dat{display:block;font-size:1.15rem;font-weight:800;color:var(--ink)}
+.tliste li.naechster{border-color:var(--mint);background:#fff}
+.tliste li.naechster .tag{color:var(--petrol)}
+.tliste li.vorbei{opacity:.45}
+.tliste li.pause{background:none;border:2px dashed #C5DCDC}
+.tliste li.pause .dat{color:var(--gray);font-size:1rem}
+.termine .ortzeit{margin-top:1.2rem;font-size:.95rem}
+.termine a.witeno{display:inline-block;margin-top:1rem;background:var(--petrol);color:#fff;text-decoration:none;font-weight:700;padding:.75rem 1.3rem;border-radius:.6rem}
+.termine a.witeno:hover{background:#03958F}
+
 /* Fuss */
 footer{background:var(--deep);color:#9FD9D4;padding:2.5rem 0;font-size:.9rem}
 footer a{color:#C9E4E1}
@@ -112,6 +128,25 @@ footer .platzhalter{color:var(--mint)}
     </div>
   </div>
 </div>
+
+<section class="band termine" id="termine">
+  <div class="wrap">
+    <h2>Unsere nächsten Treffen</h2>
+    <p class="intro">Immer samstags, 9–12 Uhr, im DIZ Greifswald. Keine Vorkenntnisse nötig, nur Neugier.</p>
+    <ul class="tliste">
+      <li data-datum="2026-12-12"><span class="tag">Samstag</span><span class="dat">12. Dezember 2026</span></li>
+      <li data-datum="2027-01-23"><span class="tag">Samstag</span><span class="dat">23. Januar 2027</span></li>
+      <li data-datum="2027-02-27"><span class="tag">Samstag</span><span class="dat">27. Februar 2027</span></li>
+      <li data-datum="2027-03-20"><span class="tag">Samstag</span><span class="dat">20. März 2027</span></li>
+      <li data-datum="2027-04-24"><span class="tag">Samstag</span><span class="dat">24. April 2027</span></li>
+      <li data-datum="2027-05-29"><span class="tag">Samstag</span><span class="dat">29. Mai 2027</span></li>
+      <li class="pause"><span class="tag">Juni – August</span><span class="dat">Sommerpause</span></li>
+    </ul>
+    <p class="ortzeit"><strong>Ort:</strong> Digitales Innovationszentrum (DIZ) der WITENO, Technologiezentrum Vorpommern, Brandteichstraße 20, 17489 Greifswald — Parkdeck geöffnet.</p>
+    <p class="muted" style="margin-top:.4rem;font-size:.9rem">Thema und Anmeldung zu jedem Treffen finden Sie im Veranstaltungskalender der WITENO unter „Aktuelle Veranstaltungen" — oder Sie <a href="mailto:openclaw.demo@icloud.com?subject=Begreifswald%20—%20Interesse">schreiben uns kurz</a>, dann sagen wir Ihnen vorher Bescheid.</p>
+    <a class="witeno" href="https://www.witeno.de/wilkommen/aktuell/#Aktuell_Events" rel="noopener">Zum WITENO-Veranstaltungskalender</a>
+  </div>
+</section>
 
 <section class="wrap" id="idee">
   <h2>Die Blackbox öffnen</h2>
@@ -196,9 +231,7 @@ footer .platzhalter{color:var(--mint)}
   <p>Wir bauen gerade eine Gruppe von Interessierten in Greifswald und Umgebung auf — zum Austauschen, Zuschauen und Selbermachen. Keine Vorkenntnisse nötig, nur Neugier.</p>
   <p style="margin-top:.8rem"><strong>Begreifswald ist ein ehrenamtliches, nicht-kommerzielles Projekt.</strong> Wir verkaufen nichts — es geht ums Verstehen, Ausprobieren und Weitergeben.</p>
   <a class="mail" href="mailto:openclaw.demo@icloud.com?subject=Begreifswald%20—%20Interesse">Schreiben Sie uns</a>
-  <p class="muted" style="margin-top:.8rem;font-size:.9rem"><strong>Nächster Termin: Samstag, 12. Dezember 2026, 9–12 Uhr.</strong><br>
-  Am einfachsten schreiben Sie uns kurz — dann sagen wir Ihnen vorher Bescheid. Die Termine stehen auch im <a href="https://www.witeno.de/wilkommen/aktuell/#Aktuell_Events" rel="noopener">Veranstaltungskalender der WITENO</a>, dort unter „Aktuelle Veranstaltungen".</p>
-<br>
+  <p class="muted" style="margin-top:.8rem;font-size:.9rem">Alle Termine finden Sie <a href="#termine">oben auf dieser Seite</a>.</p>
 </section>
 
 <footer>
@@ -226,6 +259,16 @@ function lichtAn(){
   var k=document.getElementById('knopf');
   k.disabled=true; k.textContent='Licht ist an ✓';
 }
+/* Termine: vergangene ausgrauen, nächsten hervorheben */
+(function(){
+  var heute=new Date(); heute.setHours(0,0,0,0);
+  var erster=true;
+  document.querySelectorAll('.tliste li[data-datum]').forEach(function(li){
+    var d=new Date(li.getAttribute('data-datum')+'T12:00:00');
+    if(d<heute){ li.classList.add('vorbei'); }
+    else if(erster){ li.classList.add('naechster'); li.querySelector('.tag').textContent='Nächster Termin · Samstag'; erster=false; }
+  });
+})();
 </script>
 
 </body>
