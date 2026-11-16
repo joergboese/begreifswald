@@ -79,16 +79,19 @@ a.pdf svg{width:1.15rem;height:1.15rem;flex-shrink:0}
 
 /* Termine */
 .termine{padding:2.8rem 0}
-.termine .intro{color:var(--gray)}
-.tliste{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.7rem;margin-top:1.4rem}
-.tliste li{background:var(--tint);border-radius:.7rem;padding:.8rem 1rem;border:2px solid transparent}
-.tliste .tag{display:block;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);font-weight:700}
-.tliste .dat{display:block;font-size:1.15rem;font-weight:800;color:var(--ink)}
-.tliste li.naechster{border-color:var(--mint);background:#fff}
+.termine .intro{color:var(--gray);max-width:none}
+.tliste{list-style:none;display:grid;grid-template-columns:repeat(7,1fr);gap:.5rem;margin-top:1.4rem}
+@media (max-width:720px){ .tliste{grid-template-columns:repeat(4,1fr)} }
+@media (max-width:420px){ .tliste{grid-template-columns:repeat(3,1fr)} }
+.tliste li{background:#fff;border-radius:.6rem;padding:.55rem .6rem;border:2px solid transparent;text-align:center}
+.tliste .tag{display:block;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);font-weight:700;white-space:nowrap}
+.tliste .dat{display:block;font-size:1.05rem;font-weight:800;color:var(--ink);white-space:nowrap}
+.tliste .jahr{display:block;font-size:.75rem;color:var(--gray)}
+.tliste li.naechster{border-color:var(--mint)}
 .tliste li.naechster .tag{color:var(--petrol)}
 .tliste li.vorbei{opacity:.45}
-.tliste li.pause{background:none;border:2px dashed #C5DCDC}
-.tliste li.pause .dat{color:var(--gray);font-size:1rem}
+.tliste li.pause{background:transparent;border:2px dashed #C5DCDC}
+.tliste li.pause .dat{color:var(--gray);font-size:.85rem}
 .termine .ortzeit{margin-top:1.2rem;font-size:.95rem}
 .termine a.witeno{display:inline-block;margin-top:1rem;background:var(--petrol);color:#fff;text-decoration:none;font-weight:700;padding:.75rem 1.3rem;border-radius:.6rem}
 .termine a.witeno:hover{background:#03958F}
@@ -134,13 +137,13 @@ footer .platzhalter{color:var(--mint)}
     <h2>Unsere nächsten Treffen</h2>
     <p class="intro">Immer samstags, 9–12 Uhr, im DIZ Greifswald. Keine Vorkenntnisse nötig, nur Neugier.</p>
     <ul class="tliste">
-      <li data-datum="2026-12-12"><span class="tag">Samstag</span><span class="dat">12. Dezember 2026</span></li>
-      <li data-datum="2027-01-23"><span class="tag">Samstag</span><span class="dat">23. Januar 2027</span></li>
-      <li data-datum="2027-02-27"><span class="tag">Samstag</span><span class="dat">27. Februar 2027</span></li>
-      <li data-datum="2027-03-20"><span class="tag">Samstag</span><span class="dat">20. März 2027</span></li>
-      <li data-datum="2027-04-24"><span class="tag">Samstag</span><span class="dat">24. April 2027</span></li>
-      <li data-datum="2027-05-29"><span class="tag">Samstag</span><span class="dat">29. Mai 2027</span></li>
-      <li class="pause"><span class="tag">Juni – August</span><span class="dat">Sommerpause</span></li>
+      <li data-datum="2026-12-12"><span class="tag">Samstag</span><span class="dat">12. Dez.</span><span class="jahr">2026</span></li>
+      <li data-datum="2027-01-23"><span class="tag">Samstag</span><span class="dat">23. Jan.</span><span class="jahr">2027</span></li>
+      <li data-datum="2027-02-27"><span class="tag">Samstag</span><span class="dat">27. Feb.</span><span class="jahr">2027</span></li>
+      <li data-datum="2027-03-20"><span class="tag">Samstag</span><span class="dat">20. März</span><span class="jahr">2027</span></li>
+      <li data-datum="2027-04-24"><span class="tag">Samstag</span><span class="dat">24. April</span><span class="jahr">2027</span></li>
+      <li data-datum="2027-05-29"><span class="tag">Samstag</span><span class="dat">29. Mai</span><span class="jahr">2027</span></li>
+      <li class="pause"><span class="tag">Juni – Aug.</span><span class="dat">Sommerpause</span><span class="jahr">2027</span></li>
     </ul>
     <p class="ortzeit"><strong>Ort:</strong> Digitales Innovationszentrum (DIZ) der WITENO, Technologiezentrum Vorpommern, Brandteichstraße 20, 17489 Greifswald — Parkdeck geöffnet.</p>
     <p class="muted" style="margin-top:.4rem;font-size:.9rem">Thema und Anmeldung zu jedem Treffen finden Sie im Veranstaltungskalender der WITENO unter „Aktuelle Veranstaltungen" — oder Sie <a href="mailto:openclaw.demo@icloud.com?subject=Begreifswald%20—%20Interesse">schreiben uns kurz</a>, dann sagen wir Ihnen vorher Bescheid.</p>
@@ -266,7 +269,7 @@ function lichtAn(){
   document.querySelectorAll('.tliste li[data-datum]').forEach(function(li){
     var d=new Date(li.getAttribute('data-datum')+'T12:00:00');
     if(d<heute){ li.classList.add('vorbei'); }
-    else if(erster){ li.classList.add('naechster'); li.querySelector('.tag').textContent='Nächster Termin · Samstag'; erster=false; }
+    else if(erster){ li.classList.add('naechster'); li.querySelector('.tag').textContent='Als Nächstes'; erster=false; }
   });
 })();
 </script>
